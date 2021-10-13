@@ -40,7 +40,6 @@ class _HomeState extends State<Home> {
                     right: 20,
                     child: Container(
                       height: 200,
-                      color: Colors.yellow,
                       child: CustomPaint(
                         painter: TimeLinePainter(),
                       ),
