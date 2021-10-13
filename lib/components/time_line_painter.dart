@@ -6,9 +6,8 @@ class TimeLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawLine(const Offset(0, 0), Offset(size.width, 0), mainPathPaint);
-    canvas.drawLine(
-        Offset(0, size.height), Offset(size.width, size.height), mainPathPaint);
-    print(size.height);
+    canvas.drawLine(Offset(0, size.height - 60),
+        Offset(size.width, size.height - 60), mainPathPaint);
   }
 
   @override
