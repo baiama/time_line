@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
   late final double oneStep;
   late final double screenWidth;
   String text = '';
+  int currentStep = 0;
   bool _isReady = false;
 
   @override
@@ -62,7 +63,7 @@ class _HomeState extends State<Home> {
                     child: SizedBox(
                       height: 200,
                       child: CustomPaint(
-                        painter: TimeLinePainter(),
+                        painter: TimeLinePainter(currentStep: currentStep),
                       ),
                     ),
                   ),
@@ -108,10 +109,10 @@ class _HomeState extends State<Home> {
   }
 
   void _updateText() {
-    var time = (currentLeft / oneStep).round();
-    text = '${time * 3}:00';
-    if (time < 4) {
-      text = '0${time * 3}:00';
+    currentStep = (currentLeft / oneStep).round();
+    text = '${currentStep * 3}:00';
+    if (currentStep < 4) {
+      text = '0${currentStep * 3}:00';
     }
   }
 

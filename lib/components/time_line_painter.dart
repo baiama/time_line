@@ -4,7 +4,8 @@ const bottomMargin = 60;
 const itemsCount = 8;
 
 class TimeLinePainter extends CustomPainter {
-  TimeLinePainter();
+  final int currentStep;
+  TimeLinePainter({required this.currentStep});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -33,16 +34,23 @@ class TimeLinePainter extends CustomPainter {
       final heightEnd = size.height - heightMargin;
       final p1 = Offset(dx, 0);
       final p2 = Offset(dx, heightEnd);
-      canvas.drawLine(p1, p2, pathPaint);
+      Paint paint = pathPaint;
+      TextStyle style = textStyle;
+      if (currentStep == i) {
+        paint = pathPaintGreen;
+        style = textStyleGreen;
+      }
+      canvas.drawLine(p1, p2, paint);
 
       var text = '${i * 3}:00';
       if (i < 4) {
         text = '0${i * 3}:00';
       }
+
       //Draw text
       final textSpan = TextSpan(
         text: text,
-        style: textStyle,
+        style: style,
       );
 
       final textPainter = TextPainter(
@@ -71,7 +79,17 @@ class TimeLinePainter extends CustomPainter {
     return paint;
   }
 
+  Paint get pathPaintGreen {
+    var paint = Paint()..color = Colors.green;
+    paint.strokeWidth = 1.5;
+    return paint;
+  }
+
   TextStyle get textStyle {
     return const TextStyle(fontSize: 11, color: Colors.black);
+  }
+
+  TextStyle get textStyleGreen {
+    return const TextStyle(fontSize: 11, color: Colors.green);
   }
 }
