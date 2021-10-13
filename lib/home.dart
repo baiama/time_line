@@ -17,6 +17,9 @@ class _HomeState extends State<Home> {
   late final double maxX;
   late final double oneStep;
   late final double screenWidth;
+  String text = '';
+  bool _isReady = false;
+
   @override
   void initState() {
     super.initState();
@@ -24,16 +27,22 @@ class _HomeState extends State<Home> {
   }
 
   void _afterLayout(_) {
+    text = '';
     screenWidth = context.size!.width;
     oneStep = (screenWidth - 40) / itemsCount;
     maxX = (itemsCount) * oneStep;
-    savedLeft = oneStep * 0;
+    savedLeft = oneStep * 3;
     currentLeft = savedLeft + 10;
+    _isReady = true;
+    _updateText();
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!_isReady) {
+      return Container();
+    }
     return Scaffold(
         appBar: AppBar(
           title: const Text('Time line'),
@@ -77,6 +86,12 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
+            const SizedBox(height: 30),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
           ],
         ));
   }
@@ -88,10 +103,20 @@ class _HomeState extends State<Home> {
     setState(() {
       currentLeft = (xChange + savedLeft).clamp(0, maxX);
       currentLeft = currentLeft + 10;
+      _updateText();
     });
   }
 
+  void _updateText() {
+    var time = (currentLeft / oneStep).round();
+    text = '${time * 3}:00';
+    if (time < 4) {
+      text = '0${time * 3}:00';
+    }
+  }
+
   void _onDragEnd(DragEndDetails details) {
+    _updateText();
     setState(() {
       currentLeft = (currentLeft / oneStep).round() * oneStep;
       currentLeft = currentLeft + 10;
