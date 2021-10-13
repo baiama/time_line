@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
                   Positioned(
                     left: 20,
                     right: 20,
-                    child: Container(
+                    child: SizedBox(
                       height: 200,
                       child: CustomPaint(
                         painter: TimeLinePainter(),
@@ -47,11 +47,14 @@ class _HomeState extends State<Home> {
                   ),
                   Positioned(
                     bottom: 40,
-                    left: 20,
+                    left: 0,
                     child: Container(
                       height: 20,
                       width: 20,
-                      color: Colors.green,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.green,
+                      ),
                     ),
                   ),
                 ],

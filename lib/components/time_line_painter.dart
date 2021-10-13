@@ -26,7 +26,7 @@ class TimeLinePainter extends CustomPainter {
     for (int i = 0; i <= itemsCount; i++) {
       //Draw lines
       var dx = (i * oneItemWidth);
-      var heightMargin = bottomMargin - 10;
+      var heightMargin = bottomMargin;
       if (i == 0 || i == itemsCount) {
         heightMargin = 20;
       }
